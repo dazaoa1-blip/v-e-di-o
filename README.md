@@ -22,6 +22,20 @@
 
 全部附件见 [Releases](https://github.com/dazaoa1-blip/v-e-di-o/releases) 页面。
 
+## 封面
+
+`cover/` 下是 EP04《打击感先改哪？》的 8bit 像素风封面（左 35% 灰暗痛点区 vs 右 65% 高饱和效果区）：
+
+| 文件 | 尺寸 |
+| --- | --- |
+| `cover/EP04_打击感_封面_3x4.png` | 1080×1440 |
+| `cover/EP04_打击感_封面_4x3.png` | 1440×1080 |
+| `cover/EP04_打击感_封面_16x9.png` | 1920×1080 |
+| `cover/EP04_打击感_封面_16x10.png` | 1600×1000 |
+
+封面由 `python3 cover/make_cover.py` 生成（依赖 Pillow、numpy 和系统字体 fonts-wqy-zenhei）。
+所有像素都按整数倍最近邻放大，边缘无模糊；改文案或位置时直接改脚本里的 `FORMATS` 后重新运行即可。
+
 ## 说明
 
 - 录音为手机/录音笔直录的 m4a，未做降噪与响度处理。
