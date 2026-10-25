@@ -33,7 +33,11 @@
 | `cover/EP04_打击感_封面_16x9.png` | 1920×1080 |
 | `cover/EP04_打击感_封面_16x10.png` | 1600×1000 |
 
-封面由 `python3 cover/make_cover.py` 生成（依赖 Pillow、numpy 和系统字体 fonts-wqy-zenhei）。
+EP05《商店页先改哪？》同款风格（左：灰色胶囊图墙 vs 右：《吸血鬼幸存者》真实胶囊图）：
+`cover/EP05_商店页_封面_{3x4,4x3,16x9,16x10}.png`，由 `python3 cover/make_cover_ep05.py` 生成，
+胶囊图素材在 `cover/src/ep05/`。
+
+EP04 封面由 `python3 cover/make_cover.py` 生成（依赖 Pillow、numpy 和系统字体 fonts-wqy-zenhei）。
 所有像素都按整数倍最近邻放大，边缘无模糊；改文案或位置时直接改脚本里的 `FORMATS` 后重新运行即可。
 
 ## 说明

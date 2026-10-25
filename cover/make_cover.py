@@ -455,8 +455,8 @@ def mascot_with_bubble():
     return lay
 
 
-def ep_badge(rng):
-    t = text_layer("EP.04", WHITE, INK, ow=2)
+def ep_badge(rng, label="EP.04"):
+    t = text_layer(label, WHITE, INK, ow=2)
     th, tw = t.shape[:2]
     w, h = tw + 20, th + 20
     lay = layer(w + 6, h + 6)
@@ -489,14 +489,14 @@ def bubble_round(text, fill, txt_fill):
     return lay, (12, 2 + h + tail)
 
 
-def bubble_boom(rng):
-    """爆炸形气泡：小字“有分量！”+ 双倍大的“咚！”。"""
-    t1 = text_layer("有分量！", WHITE, INK, ow=2)
-    t2 = text_layer("咚！", RED, INK, ow=3, k=2)
+def bubble_boom(rng, small="有分量！", big="咚！", big_k=2, pad=(1.5, 1.6)):
+    """爆炸形气泡：白色小字（可省略）+ 放大的红字。"""
+    ts = [text_layer(small, WHITE, INK, ow=2)] if small else []
+    ts.append(text_layer(big, RED, INK, ow=3, k=big_k))
     gap = 2
-    tw = max(t1.shape[1], t2.shape[1])
-    th = t1.shape[0] + t2.shape[0] + gap
-    w, h = int(tw * 1.5) + 10, int(th * 1.6) + 10
+    tw = max(t.shape[1] for t in ts)
+    th = sum(t.shape[0] for t in ts) + gap * (len(ts) - 1)
+    w, h = int(tw * pad[0]) + 10, int(th * pad[1]) + 10
     lay = layer(w, h)
     pts = star_points(w / 2, h / 2, 12, 1.0, 0.74, rng, jitter=0.08, rot=-0.25,
                       sx=w / 2 - 5, sy=h / 2 - 5)
@@ -507,7 +507,7 @@ def bubble_boom(rng):
     lay[ol] = INK
     lay[m] = YELLOW
     y = (h - th) // 2
-    for t in (t1, t2):
+    for t in ts:
         paste(lay, t, (w - t.shape[1]) // 2, y)
         y += t.shape[0] + gap
     return lay
