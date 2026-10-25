@@ -1,0 +1,126 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="node_modules/@fontsource/noto-sans-sc/900.css">
+<style>
+@font-face{font-family:Pix;src:url(node_modules/@fontsource/fusion-pixel-12px-proportional-sc/files/fusion-pixel-12px-proportional-sc-latin-400-normal.woff2)}
+:root{--ink:#120e24;--yellow:#ffd23f;--orange:#ff8a1e;--cyan:#2ee6f2;--pink:#ff4fa0;--lav:#d9d3f2;--red:#ff3b5c}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000}
+#c{position:relative;overflow:hidden;font-family:'Noto Sans SC';font-weight:900;color:var(--ink);
+  background:
+   radial-gradient(circle at 1px 1px,rgba(255,255,255,.07) 2px,transparent 2.5px) 0 0/28px 28px,
+   repeating-conic-gradient(from 0deg at 50% 62%,rgba(255,255,255,.035) 0 6deg,transparent 6deg 15deg),
+   radial-gradient(ellipse at 50% 62%,rgba(255,255,255,.06),transparent 60%),
+   linear-gradient(105deg,#24306e 0%,#2a2a6a 46%,#4a2470 54%,#5e2470 100%);}
+.abs{position:absolute}
+/* pixel title: two stacked layers, outline+shadow below, stepped gradient fill above */
+.title{font-family:Pix;line-height:1;white-space:nowrap;letter-spacing:0}
+.title .l{display:block;position:relative;width:fit-content}
+.title.center .l{margin:0 auto}
+.title .o{position:absolute;inset:0;color:var(--ink)}
+.title .f{position:relative;background:linear-gradient(180deg,#fff6c9 0 12%,var(--yellow) 12% 66%,var(--orange) 66% 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.panel{background:#17142a;border:6px solid #fff;border-radius:26px;box-shadow:10px 12px 0 rgba(8,6,20,.75)}
+.grid{display:grid;grid-template-columns:repeat(3,var(--tw));grid-auto-rows:calc(var(--tw)*215/460);gap:var(--gap)}
+.grid .t{border-radius:8px;overflow:hidden;position:relative}
+.grid .t img{width:100%;height:100%;display:block;filter:brightness(.62) contrast(.9)}
+.grid .t.hl img{filter:brightness(.95) contrast(1.05)}
+.grid .t.hl{overflow:visible}
+.grid .t.hl::after{content:"";position:absolute;inset:calc(var(--hlw)*-1.6);border:var(--hlw) solid var(--red);border-radius:12px;box-shadow:0 0 0 calc(var(--hlw)*.6) rgba(18,14,36,.9)}
+.tag{display:inline-block;border:5px solid var(--ink);border-radius:999px;box-shadow:6px 7px 0 var(--ink);line-height:1;white-space:nowrap}
+.mock{position:absolute;background:var(--red);color:#fff;border:3px solid #fff;border-radius:8px;line-height:1;white-space:nowrap;z-index:3;transform:rotate(-3deg)}
+.bubble{position:absolute;background:var(--lav);border:5px solid var(--ink);border-radius:999px;box-shadow:5px 6px 0 var(--ink);line-height:1;z-index:4;white-space:nowrap}
+.bubble::after{content:"";position:absolute;width:22px;height:22px;background:var(--lav);border-right:5px solid var(--ink);border-bottom:5px solid var(--ink);transform:rotate(45deg)}
+.cap img{display:block;width:100%;border-radius:10px}
+.caption{color:#e9e6ff;white-space:nowrap;line-height:1}
+.badge{display:flex;align-items:center;justify-content:center;background:var(--pink);color:#fff;font-family:'Noto Sans SC';font-weight:900;
+  clip-path:polygon(50% 0,59% 14%,75% 6%,76% 24%,94% 22%,87% 39%,100% 50%,87% 61%,94% 78%,76% 76%,75% 94%,59% 86%,50% 100%,41% 86%,25% 94%,24% 76%,6% 78%,13% 61%,0 50%,13% 39%,6% 22%,24% 24%,25% 6%,41% 14%);}
+.badge span{color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;transform:rotate(-8deg)}
+.slime{image-rendering:pixelated}
+.excl{position:absolute;background:#fff;border:5px solid var(--ink);border-radius:14px;color:var(--red);display:flex;align-items:center;justify-content:center;font-family:Pix;line-height:1;box-shadow:4px 5px 0 var(--ink)}
+.pill{background:var(--cyan);border:5px solid var(--ink);border-radius:999px;box-shadow:6px 7px 0 var(--ink);line-height:1;white-space:nowrap}
+.sig{color:#d9d3f2;white-space:nowrap;-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;letter-spacing:.04em}
+.arrow{background:var(--cyan);filter:drop-shadow(6px 7px 0 var(--ink))}
+</style></head><body><div id="c"></div>
+<script>
+const F={
+ '1920x1080':{W:1920,H:1080,
+   title:{x:170,y:58,u:16,lines:['商店页先改哪？']},badge:{x:1640,y:40,s:230},
+   left:{x:70,y:330,tw:226,gap:12,pad:24},
+   right:{x:1000,y:0,w:860,vcenter:true},arrow:{dir:'r',s:90},
+   slime:{x:930,y:910,u:9},pill:{x:70,y:968,fs:42,text:'真实商店页案例'},sig:{x:1850,y:978,fs:40}},
+ '1600x1000':{W:1600,H:1000,
+   title:{x:70,y:50,u:14,lines:['商店页先改哪？']},badge:{x:1340,y:30,s:210},
+   left:{x:50,y:300,tw:196,gap:10,pad:22},
+   right:{x:850,y:0,w:700,vcenter:true},arrow:{dir:'r',s:76},
+   slime:{x:780,y:830,u:8},pill:{x:50,y:900,fs:38,text:'真实商店页案例'},sig:{x:1545,y:910,fs:36}},
+ '1440x1080':{W:1440,H:1080,
+   title:{x:52,y:80,u:13,lines:['商店页先改哪？']},badge:{x:1215,y:56,s:190},
+   left:{x:44,y:370,tw:178,gap:10,pad:20},
+   right:{x:790,y:0,w:592,vcenter:true},arrow:{dir:'r',s:54},
+   slime:{x:648,y:862,u:9},pill:{x:44,y:985,fs:38,text:'真实商店页案例'},sig:{x:1396,y:990,fs:36}},
+ '1080x1440':{W:1080,H:1440,
+   title:{x:0,y:34,u:12,lines:['商店页','先改哪？'],center:true,lh:1.04},badge:{x:40,y:34,s:180},
+   left:{x:0,y:404,tw:196,gap:10,pad:20,center:true},
+   right:{x:0,y:966,w:720,center:true},arrow:{dir:'d',s:46},
+   slime:{x:842,y:40,u:8},pill:{x:44,y:1394,fs:28,text:'真实商店页案例'},sig:{x:1036,y:1396,fs:28}},
+};
+const f=F[new URLSearchParams(location.search).get('f')||'1920x1080'];
+const c=document.getElementById('c');c.style.width=f.W+'px';c.style.height=f.H+'px';
+const el=(h,s={})=>{const d=document.createElement('div');d.innerHTML=h;const e=d.firstElementChild;Object.assign(e.style,s);c.appendChild(e);return e};
+const px=v=>v+'px';
+// title
+{const t=f.title,fs=t.u*12,u=t.u;const sh=[];
+ for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++)if(dx||dy)sh.push(`${dx*u*.75}px ${dy*u*.75}px 0 var(--ink)`);
+ for(let k=1;k<=4;k++)sh.push(`${u*(.75+k*.25)}px ${u*(.75+k*.3)}px 0 var(--ink)`);
+ const b=u*.3, fills=[[0,0],[b,0],[0,b],[b,b]].map(([x,y],i)=>`<span class="f" style="${i?'position:absolute;':''}left:${x}px;top:${y}px">\${l_}</span>`);
+ const lines=t.lines.map(l=>`<span class="l"><span class="o" style="text-shadow:${sh.join(',')};left:${b/2}px;top:${b/2}px">${l}</span>${fills.join('').replaceAll('${l_}',l)}</span>`).join('');
+ const e=el(`<div class="abs title">${lines}</div>`,{left:px(t.x),top:px(t.y),fontSize:px(fs),lineHeight:t.lh||1});
+ if(t.center){e.style.left='0';e.style.width='100%';e.classList.add('center')}}
+// badge
+{const b=f.badge;el(`<div class="abs badge"><span>EP.05</span></div>`,{left:px(b.x),top:px(b.y),width:px(b.s),height:px(b.s),fontSize:px(b.s*.2),transform:'rotate(10deg)'})}
+// grid
+const L=f.left,th=L.tw*215/460;
+const gw=3*L.tw+2*L.gap+2*L.pad, gh=4*th+3*L.gap+2*L.pad;
+const lx=L.center?(f.W-gw)/2:L.x;
+const lp=el(`<div class="abs panel"></div>`,{left:px(lx),top:px(L.y),width:px(gw+12),height:px(gh+12),padding:px(L.pad)});
+const g=document.createElement('div');g.className='grid';g.style.setProperty('--tw',px(L.tw));g.style.setProperty('--gap',px(L.gap));g.style.setProperty('--hlw',px(Math.max(4,L.tw/45)));
+for(let r=0;r<4;r++)for(let k=0;k<3;k++){const d=document.createElement('div');d.className='t'+(r==1&&k==1?' hl':'');
+ // tile 00 lost its top strip under the tag in every source: show its clean lower part instead
+ d.innerHTML=(r==0&&k==0)?`<img src="assets/tile_00.png" style="position:absolute;width:136%;height:136%;left:-18%;top:-36%">`:`<img src="assets/tile_${r}${k}.png">`;g.appendChild(d)}
+lp.appendChild(g);
+const tagFs=L.tw*.26;
+el(`<div class="abs tag" style="background:var(--lav)">认不出</div>`,{left:px(lx-18),top:px(L.y-tagFs*1.05),fontSize:px(tagFs),padding:`${tagFs*.22}px ${tagFs*.5}px`,transform:'rotate(-4deg)',zIndex:5});
+// highlighted tile coordinates
+const hx=lx+6+L.pad+L.tw+L.gap, hy=L.y+6+L.pad+th+L.gap;
+const bf=L.tw*.17;
+el(`<div class="bubble">…?</div>`,{left:px(hx+L.tw*.5),top:px(hy-bf*1.8),fontSize:px(bf),padding:`${bf*.22}px ${bf*.55}px`});
+const st=document.createElement('style');st.textContent=`.bubble::after{left:24%;bottom:-15px}`;document.head.appendChild(st);
+const mf=L.tw*.085;
+el(`<div class="mock">示意改图</div>`,{left:px(hx-mf*.4),top:px(hy+th-mf*.9),fontSize:px(mf),padding:`${mf*.3}px ${mf*.45}px`});
+// right capsule
+const R=f.right,ch=R.w*355/760,ph=ch+48;const rx=R.center?(f.W-R.w)/2:R.x;
+const ry=R.vcenter?L.y+(gh+12-ph)/2:R.y;
+el(`<div class="abs panel cap"><img src="assets/capsule.png"></div>`,{left:px(rx-18),top:px(ry),width:px(R.w+48),padding:'18px'});
+const rtf=Math.min(R.w*.068,52);
+el(`<div class="abs tag" style="background:var(--yellow)">一眼认出！</div>`,{left:px(rx-34),top:px(ry-rtf*1.15),fontSize:px(rtf),padding:`${rtf*.22}px ${rtf*.5}px`,transform:'rotate(-3deg)',zIndex:5});
+const cf=Math.round(Math.min(R.w*.032,28));
+const swapFs=Math.round(f.arrow.dir=='r'?Math.min(f.arrow.s*.42,(rx-18-(lx+gw+12))/3.8):f.arrow.s*.42);
+// arrow from highlighted tile to capsule, "只换一张图" rides along it
+{const s=f.arrow.s;
+ if(f.arrow.dir=='r'){const l0=lx+gw+12, l1=rx-18, ax=l0+(l1-l0-s*1.5)/2, ay=ry+ph/2-s/2;
+  el(`<div class="abs arrow"></div>`,{left:px(ax),top:px(ay),width:px(s*1.5),height:px(s),clipPath:'polygon(0 30%,55% 30%,55% 0,100% 50%,55% 100%,55% 70%,0 70%)'});
+  el(`<div class="abs caption" style="text-align:center;line-height:1.25">只换<br>一张图</div>`,{left:px(l0),width:px(l1-l0),top:px(ay+s+10),fontSize:px(swapFs),color:'var(--cyan)'});
+  el(`<div class="abs caption">↑ 《吸血鬼幸存者》真实胶囊图</div>`,{left:px(rx-12),top:px(ry+ph+cf*.8),fontSize:px(cf)});}
+ else {const t0=L.y+gh+12, t1=ry-rtf*1.15, ay=t0+(t1-t0-s*1.2)/2+6, ax=f.W/2-s/2;
+  el(`<div class="abs arrow"></div>`,{left:px(ax),top:px(ay),width:px(s),height:px(s*1.2),clipPath:'polygon(30% 0,70% 0,70% 50%,100% 50%,50% 100%,0 50%,30% 50%)'});
+  el(`<div class="abs caption">只换一张图</div>`,{right:px(f.W/2+s*.8),top:px(ay+s*.6-swapFs*.5),fontSize:px(swapFs*1.15),color:'var(--cyan)'});
+  el(`<div class="abs caption">《吸血鬼幸存者》真实胶囊图</div>`,{left:px(f.W/2+s*.8),top:px(ay+s*.6-cf*.5),fontSize:px(cf)});}}
+// slime + "!"
+{const S=f.slime,u=S.u;el(`<img class="abs slime" src="assets/slime.png">`,{left:px(S.x),top:px(S.y),width:px(17*u),height:px(17*u)});
+ el(`<div class="excl">!</div>`,{left:px(S.x+17*u+4),top:px(S.y-2*u),width:px(6*u),height:px(8*u),fontSize:px(6.5*u),transform:'rotate(8deg)'});}
+// footer
+el(`<div class="abs pill">${f.pill.text}</div>`,{left:px(f.pill.x),top:px(f.pill.y-f.pill.fs*.6),fontSize:px(f.pill.fs),padding:`${f.pill.fs*.32}px ${f.pill.fs*.7}px`});
+el(`<div class="abs sig">大燥 · 第5期</div>`,{right:px(f.W-f.sig.x),top:px(f.sig.y-f.sig.fs*.5),fontSize:px(f.sig.fs)});
+document.fonts.ready.then(()=>{document.body.dataset.ready=1});
+</script></body></html>

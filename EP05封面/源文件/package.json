@@ -1,0 +1,8 @@
+{
+  "name": "ep05-cover",
+  "private": true,
+  "dependencies": {
+    "@fontsource/fusion-pixel-12px-proportional-sc": "^5.3.0",
+    "@fontsource/noto-sans-sc": "^5.3.1"
+  }
+}
